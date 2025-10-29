@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joshua Crotts — Dad • J/E Interpreter • Perpetual Begginer • Coder • Blender • UE5 • GPT enjoyer</title>
+  <meta name="description" content="Sapporo-based maker building a transferable technical toolkit." />
+  <style>
+    /* --- Base / Theme ----------------------------------------------------- */
+    :root {
+      --bg: #0b0c0f;
+      --surface: #12141a;
+      --text: #e6e8ee;
+      --muted: #a8adbb;
+      --primary: #7aa2ff;
+      --accent: #4ee1a0;
+      --card: #161922;
+      --border: #23283a;
+      --shadow: 0 6px 20px rgba(0,0,0,.35);
+      --radius: 16px;
+      --maxw: 1120px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafb; --surface: #ffffff; --text: #111318; --muted: #4c5260;
+        --primary: #2a5bd7; --accent: #0f9d58; --card: #ffffff; --border: #e6e8ee;
+        --shadow: 0 6px 20px rgba(0,0,0,.08);
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, "Noto Sans JP", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(122,162,255,.12), transparent),
+                  radial-gradient(900px 700px at 120% 10%, rgba(78,225,160,.12), transparent),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 24px; }
+
+    /* --- Header / Nav ----------------------------------------------------- */
+    header { position: sticky; top: 0; backdrop-filter: blur(8px); background: color-mix(in srgb, var(--bg) 86%, transparent); border-bottom: 1px solid var(--border); z-index: 50; }
+    .nav { display: flex; gap: 16px; align-items: center; justify-content: space-between; padding: 12px 24px; max-width: var(--maxw); margin: 0 auto; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .3px; }
+    .brand .dot { width: 12px; height: 12px; border-radius: 50%; background: linear-gradient(45deg, var(--primary), var(--accent)); box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 50%, transparent); }
+    nav ul { display: flex; list-style: none; gap: 18px; margin: 0; padding: 0; }
+    nav a { padding: 8px 10px; border-radius: 10px; }
+    nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .lang { display: flex; gap: 8px; align-items: center; }
+    .btn { border: 1px solid var(--border); background: var(--surface); color: var(--text); padding: 8px 12px; border-radius: 999px; cursor: pointer; box-shadow: var(--shadow); }
+    .btn:hover { filter: brightness(1.05); }
+
+    /* --- Hero ------------------------------------------------------------- */
+    .hero { padding: 56px 24px 24px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.2; margin: 8px 0; }
+    .hero p { color: var(--muted); margin: 8px 0 0; }
+    .chipbar { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .chip { border: 1px solid var(--border); background: var(--card); padding: 6px 10px; border-radius: 999px; font-size: .9rem; }
+
+    /* --- Sections --------------------------------------------------------- */
+    section { padding: 24px; }
+    section h2 { font-size: clamp(22px, 3vw, 32px); margin: 0 0 12px; }
+    .muted { color: var(--muted); }
+
+    /* --- Cards ------------------------------------------------------------ */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: clip; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 100%; }
+    .thumb { aspect-ratio: 16/9; background: linear-gradient(180deg, color-mix(in srgb, var(--primary) 20%, transparent), color-mix(in srgb, var(--accent) 10%, transparent)), #0e1016; display: grid; place-items: center; color: #ffffffa0; font-weight: 600; letter-spacing: .3px; }
+    .thumb svg { opacity: .8; }
+    .card .content { padding: 14px; display: grid; gap: 8px; }
+    .card h3 { margin: 4px 0; font-size: 1.05rem; }
+    .bullets { margin: 0; padding-left: 18px; }
+    .links { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill { font-size: .85rem; border: 1px solid var(--border); background: var(--surface); padding: 6px 10px; border-radius: 999px; display: inline-flex; gap: 6px; align-items: center; }
+    .pill svg { width: 16px; height: 16px; }
+
+    /* --- About / Contact -------------------------------------------------- */
+    .about { display: grid; gap: 10px; max-width: 70ch; }
+    .links-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* --- Footer ----------------------------------------------------------- */
+    footer { border-top: 1px solid var(--border); padding: 24px; color: var(--muted); }
+
+    /* --- Language visibility --------------------------------------------- */
+    body[data-lang="en"] .lang-ja { display: none !important; }
+    body[data-lang="ja"] .lang-en { display: none !important; }
+  </style>
+</head>
+<body data-lang="en">
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>J. Smith</span>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#projects" class="lang-en">Projects</a><a href="#projects" class="lang-ja">制作物</a></li>
+          <li><a href="#about" class="lang-en">About</a><a href="#about" class="lang-ja">自己紹介</a></li>
+          <li><a href="#contact" class="lang-en">Contact</a><a href="#contact" class="lang-ja">連絡先</a></li>
+        </ul>
+      </nav>
+      <div class="lang">
+        <button id="langBtn" class="btn" type="button" aria-label="Toggle language">EN / 日本語</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="top">
+      <p class="muted">
+        <span class="lang-en">Sapporo, Japan · Coding • Blender • UE5</span>
+        <span class="lang-ja">日本・札幌　コーディング／Blender／UE5</span>
+      </p>
+      <h1>
+        <span class="lang-en">Interpreter ➜ Technical Creative</span>
+        <span class="lang-ja">通訳 ➜ テクニカル・クリエイティブ</span>
+      </h1>
+      <p>
+        <span class="lang-en">I ship small, practical projects to build a transferable toolkit across web, 3D, and Blueprints.</span>
+        <span class="lang-ja">Web・3D・Blueprints を横断し、実用的な小さな制作を積み重ねてスキルを磨いています。</span>
+      </p>
+      <div class="chipbar">
+        <span class="chip">Python</span>
+        <span class="chip">Blender</span>
+        <span class="chip">UE5 Blueprints</span>
+        <span class="chip lang-en">Bilingual (EN/JP)</span>
+        <span class="chip lang-ja">英日バイリンガル</span>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>
+        <span class="lang-en">Featured Projects</span>
+        <span class="lang-ja">ピックアップ制作物</span>
+      </h2>
+      <p class="muted lang-en">6–9 tiles max. Each links to the right platform (GitHub, ArtStation, Sketchfab, itch.io).</p>
+      <p class="muted lang-ja">最大 6〜9 件まで。制作物ごとに最適なプラットフォームへリンク（GitHub／ArtStation／Sketchfab／itch.io）。</p>
+
+      <div class="grid" id="projectGrid">
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="thumb" role="img" aria-label="Family Plan Board demo placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 8h10M7 12h6"/>
+            </svg>
+          </div>
+          <div class="content">
+            <h3>Family Plan Board (2025)</h3>
+            <ul class="bullets">
+              <li class="lang-en">Tiny web app: add/mark tasks, filter by week.</li>
+              <li class="lang-ja">小さな Web アプリ：タスクの追加・完了・週別フィルタ。</li>
+              <li class="lang-en">HTML/CSS/JS; keyboard accessible.</li>
+              <li class="lang-ja">HTML/CSS/JS・キーボード操作対応。</li>
+              <li class="lang-en">10s demo + README with run steps.</li>
+              <li class="lang-ja">10 秒デモと起動手順付き README。</li>
+            </ul>
+            <div class="links">
+              <a class="pill" href="#" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5l-9.5 5.5v11l9.5 5.5 9.5-5.5v-11L12 .5zm0 2.2l7.2 4.2v9.2L12 20.3 4.8 16.1V6.9L12 2.7z"/></svg>
+                GitHub
+              </a>
+              <a class="pill" href="#" target="_blank" rel="noopener">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="thumb" role="img" aria-label="Stylized Prop Pack placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-6 9 6-9 6-9-6z"/><path d="M21 15l-9 6-9-6"/>
+            </svg>
+          </div>
+          <div class="content">
+            <h3>Stylized Sapporo Prop Pack (2025)</h3>
+            <ul class="bullets">
+              <li class="lang-en">5 props: cone, crate, bench, vending machine, bollard.</li>
+              <li class="lang-ja">コーン／木箱／ベンチ／自販機／ボラードの 5 点。</li>
+              <li class="lang-en">Mid‑poly, UV’d, simple stylized materials.</li>
+              <li class="lang-ja">中ポリ、UV 展開、スタイライズ材質。</li>
+              <li class="lang-en">Turntable GIF + node screenshots.</li>
+              <li class="lang-ja">ターンテーブル GIF とノード構成のスクショ。</li>
+            </ul>
+            <div class="links">
+              <a class="pill" href="#" target="_blank" rel="noopener">ArtStation</a>
+              <a class="pill" href="#" target="_blank" rel="noopener">Sketchfab</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="thumb" role="img" aria-label="UE5 Micro-Scene placeholder">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="14" rx="2"/>
+              <path d="M8 21h8"/>
+            </svg>
+          </div>
+          <div class="content">
+            <h3>UE5 Micro‑Scene (2025)</h3>
+            <ul class="bullets">
+              <li class="lang-en">Prop pack imported; Blueprint: “E to interact.”</li>
+              <li class="lang-ja">Prop パックをインポート、Blueprint で「E」操作。</li>
+              <li class="lang-en">UI tooltip + light toggle with Timeline.</li>
+              <li class="lang-ja">UI ツールチップとライトのトグル（Timeline）。</li>
+              <li class="lang-en">20s walkthrough + README.</li>
+              <li class="lang-ja">20 秒の紹介動画と README。</li>
+            </ul>
+            <div class="links">
+              <a class="pill" href="#" target="_blank" rel="noopener">itch.io</a>
+              <a class="pill" href="#" target="_blank" rel="noopener">YouTube</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- TEMPLATE: Duplicate this block for new cards. Replace text/links. -->
+        <!--
+        <article class="card">
+          <div class="thumb" role="img" aria-label="[Describe thumbnail]">
+            <!-- Drop a 16:9 GIF or IMG inside if you have one -->
+          </div>
+          <div class="content">
+            <h3>Project Title (Year)</h3>
+            <ul class="bullets">
+              <li class="lang-en">Bullet 1 (what it is)</li>
+              <li class="lang-ja">箇条書き 1（概要）</li>
+              <li class="lang-en">Bullet 2 (how you built it)</li>
+              <li class="lang-ja">箇条書き 2（作り方）</li>
+              <li class="lang-en">Bullet 3 (result/impact)</li>
+              <li class="lang-ja">箇条書き 3（成果）</li>
+            </ul>
+            <div class="links">
+              <a class="pill" href="#" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+        -->
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>
+        <span class="lang-en">About</span>
+        <span class="lang-ja">自己紹介</span>
+      </h2>
+      <div class="about">
+        <p class="lang-en">Sapporo‑based interpreter building a transferable toolkit across coding, Blender, and UE5. I ship small projects, document what I learn, and favor practical tools over polish.</p>
+        <p class="lang-ja">札幌在住の通訳。コーディング、Blender、UE5 を横断して、転用しやすいスキルセットを作っています。小さく作って公開し、学びを記録し、実用性を重視します。</p>
+        <div class="links-row">
+          <a class="pill" href="#" target="_blank" rel="noopener">GitHub</a>
+          <a class="pill" href="#" target="_blank" rel="noopener">ArtStation</a>
+          <a class="pill" href="#" target="_blank" rel="noopener">Sketchfab</a>
+          <a class="pill" href="#" target="_blank" rel="noopener">itch.io</a>
+          <a class="pill" href="#" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>
+        <span class="lang-en">Contact</span>
+        <span class="lang-ja">連絡先</span>
+      </h2>
+      <p>
+        <span class="lang-en">Open to feedback and collaboration. Best way to reach me:</span>
+        <span class="lang-ja">フィードバック・コラボ歓迎。ご連絡はこちら：</span>
+        <a href="mailto:you@example.com">you@example.com</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div class="muted">
+      <span class="lang-en">Built as a static one‑page site. Last updated</span>
+      <span class="lang-ja">静的 1 ページサイト。最終更新：</span>
+      <time id="lastUpdated" datetime=""></time>
+    </div>
+  </footer>
+
+  <script>
+    // --- Language toggle (persists via localStorage) ----------------------
+    const btn = document.getElementById('langBtn');
+    const saved = localStorage.getItem('lang');
+    const browserJa = (navigator.language || '').toLowerCase().startsWith('ja');
+    const initial = saved || (browserJa ? 'ja' : 'en');
+    setLang(initial);
+
+    btn.addEventListener('click', () => setLang(document.body.dataset.lang === 'en' ? 'ja' : 'en'));
+
+    function setLang(lang) {
+      document.body.dataset.lang = lang;
+      document.documentElement.lang = lang;
+      localStorage.setItem('lang', lang);
+      btn.textContent = lang === 'en' ? 'EN / 日本語' : '英語 / JP';
+    }
+
+    // --- Last updated stamp ----------------------------------------------
+    const last = new Date(document.lastModified);
+    const iso = last.toISOString();
+    const nice = last.toLocaleDateString(document.documentElement.lang || 'en', { year: 'numeric', month: 'short', day: 'numeric' });
+    const el = document.getElementById('lastUpdated');
+    el.setAttribute('datetime', iso);
+    el.textContent = nice;
+  </script>
+</body>
+</html>
